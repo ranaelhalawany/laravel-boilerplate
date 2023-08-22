@@ -25,4 +25,4 @@ class ProfileController
 
         return redirect()->route('frontend.user.account', ['#information'])->withFlashSuccess(__('Profile successfully updated.'));
     }
-}
+} 

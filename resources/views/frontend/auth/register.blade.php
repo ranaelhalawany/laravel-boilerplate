@@ -12,7 +12,7 @@
                     </x-slot>
 
                     <x-slot name="body">
-                        <x-forms.post :action="route('frontend.auth.register')">
+                        <x-forms.post :action="route('frontend.auth.register')" enctype="multipart/form-data">
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">@lang('Name')</label>
 
@@ -20,14 +20,24 @@
                                     <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" placeholder="{{ __('Name') }}" maxlength="100" required autofocus autocomplete="name" />
                                 </div>
                             </div><!--form-group-->
-
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">@lang('E-mail Address')</label>
 
                                 <div class="col-md-6">
                                     <input type="email" name="email" id="email" class="form-control" placeholder="{{ __('E-mail Address') }}" value="{{ old('email') }}" maxlength="255" required autocomplete="email" />
                                 </div>
+
                             </div><!--form-group-->
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">@lang('Profile Picture')</label>
+
+                                <div class="col-md-6">
+                                    <input type="file" name="profile_picture" id="profile_picture" accept="image/*" class="form-control" />
+                                </div>
+
+                            </div><!--form-group-->
+                            
+                             
 
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">@lang('Password')</label>
