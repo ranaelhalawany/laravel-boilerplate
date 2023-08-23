@@ -194,7 +194,7 @@ class UserService extends BaseService
      */
     public function updateProfile(User $user, array $data = []): User
     {
-         dd($data);
+       //  dd($data);
         $user->name = $data['name'] ?? null;
 
         if ($user->canChangeEmail() && $user->email !== $data['email']) {
@@ -205,7 +205,7 @@ class UserService extends BaseService
         }
 
         if (isset($data['profile_picture'])) {
-            dd("here");
+          //  dd("here");
             $baseDir = 'profile_pictures';
             $name = sha1(time() . $data['profile_picture']->hashName());
             $extension = $data['profile_picture']->extension();
@@ -227,8 +227,8 @@ class UserService extends BaseService
             $image->save($imagePath);
     
             // Update the user's profile_picture column with the new path
-            dd($baseDir + $fileName);
-            dd("here");
+            //dd($baseDir + $fileName);
+          //  dd("here");
             $user->profile_picture = "{$baseDir}/{$fileName}";
             $user->save();
         }

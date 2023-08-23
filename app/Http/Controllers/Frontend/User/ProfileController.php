@@ -17,6 +17,7 @@ class ProfileController
      */
     public function update(UpdateProfileRequest $request, UserService $userService)
     {
+       // dd($request);
         $userService->updateProfile($request->user(), $request->validated());
 
         if (session()->has('resent')) {
