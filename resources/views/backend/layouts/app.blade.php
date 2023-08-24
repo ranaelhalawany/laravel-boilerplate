@@ -13,6 +13,7 @@
     <link href="{{ mix('css/backend.css') }}" rel="stylesheet">
     <livewire:styles />
     @stack('after-styles')
+
 </head>
 <body class="c-app">
     @include('backend.includes.sidebar')
