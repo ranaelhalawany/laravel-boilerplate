@@ -22,13 +22,12 @@ class DashboardController
                     ->get();
     
 
-        $userRegistrations = User::selectRaw('DATE(created_at) as registration_date, COUNT(*) as count')
-        ->groupBy('registration_date')
-        ->get();
+                    $userRegistrations = User::selectRaw('DATE(created_at) as registration_date, COUNT(*) as count')
+                    ->groupBy('registration_date')
+                    ->get();
         // $userTypesChart = \ConsoleTVs\Charts\Facades\Charts ::database($userTypes, 'pie', 'highcharts')
         // ->title('User Types')
         // ->groupBy('type');
-
        return view('backend.dashboard', [
         'totalUsers' => $totalUsers,
         'userTypes' => $userTypes,

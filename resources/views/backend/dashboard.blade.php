@@ -3,6 +3,9 @@
 @section('title', __('Dashboard'))
 
 @section('content')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@2.0.0/dist/chartjs-adapter-moment.min.js"></script>
+
     <x-backend.card>
         <x-slot name="header">
             @lang('Welcome :Name', ['name' => $logged_in_user->name])
@@ -12,85 +15,70 @@
             @lang('Welcome to the Dashboard')
 
             <div class="mt-4">
-               
-               <p>Total Users: {{ $totalUsers }}</p>
-               <canvas id="userTypeChart" width="400" height="400"></canvas>
-               <canvas id="userRegistrationChart" width="400" height="200"></canvas>
-
-           </div>  
-          <!-- <div class="mt-4">
- 
-</div>-->
-
-
+                <p>Total Users: {{ $totalUsers }}</p>
+            </div>
+            <div class="mt-4">
+                <canvas id="userTypeChart" width="200" height="200"></canvas>
+            </div>
+            <div class="mt-4">
+             <canvas id="userRegistrationChart" width="400" height="200"></canvas>
+            </div>
         </x-slot>
-
-      
     </x-backend.card>
-@endsection
-
-@section('head')
- 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+
         var userTypesData = @json($userTypes);
-        
-        document.addEventListener("DOMContentLoaded", function() {
-            var ctx = document.getElementById('userTypeChart').getContext('2d');
-            var userTypeChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: userTypesData.map(item => item.type),
-                    datasets: [{
-                        data: userTypesData.map(item => item.count),
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.8)',
-                            'rgba(54, 162, 235, 0.8)',
-                            // Add more colors here for different types
-                        ],
-                    }],
-                },
-            });
-        });
+        var userRegistrationsData = @json($userRegistrations);
+        console.log(@json($userRegistrations));
 
-    var userRegistrationsData = @json($userRegistrations);
-    
-    var dates = userRegistrationsData.map(item => item.registration_date);
-    var counts = userRegistrationsData.map(item => item.count);
-    
-    var ctx = document.getElementById('userRegistrationChart').getContext('2d');
-    var userRegistrationChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: dates,
-            datasets: [{
-                label: 'Users Registered',
-                data: counts,
-                backgroundColor: 'rgba(54, 162, 235, 0.8)',
-            }],
-        },
-        options: {
-            scales: {
-                x: {
-                    type: 'time',
-                    time: {
-                        unit: 'day',
-                    },
-                },
-                y: {
-                    beginAtZero: true,
-                    stepSize: 1,
-                },
+        var userTypeCtx = document.getElementById('userTypeChart').getContext('2d');
+        var userTypeLabels = userTypesData.map(item => item.type);
+        var userTypeData = userTypesData.map(item => item.count);
+        var userTypeBackgroundColors = ['red', 'green', 'blue', 'orange', 'purple', 'yellow', 'cyan'];
+
+        var userTypeConfig = {
+            type: 'pie',
+            data: {
+                labels: userTypeLabels,
+                datasets: [{
+                    data: userTypeData,
+                    backgroundColor: userTypeBackgroundColors
+                }]
             },
-        },
-    });
-    console.log(userRegistrationsData);
-    console.log(userTypesData);
-    console.log("rana");
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        };
+        
+        new Chart(userTypeCtx, userTypeConfig);
 
-    </script>  
-@endsection 
+        var userRegistrationCtx = document.getElementById('userRegistrationChart').getContext('2d');
+        var userRegistrationLabels = userRegistrationsData.map(item => item.registration_date);
+        var userRegistrationData = userRegistrationsData.map(item => item.count);
 
-  
+        var userRegistrationConfig = {
+    type: 'bar',
+    data: {
+        labels: userRegistrationLabels,
+        datasets: [{
+            label: 'Users Registered',
+            data: userRegistrationData,
+            backgroundColor: 'rgba(54, 162, 235, 0.8)',
+        }]
+    },
+    options: {
+        responsive: true,
+                maintainAspectRatio: false,
 
+    },
+};
+
+
+        new Chart(userRegistrationCtx, userRegistrationConfig);
+     
+      
+
+    </script>
+@endsection
 
