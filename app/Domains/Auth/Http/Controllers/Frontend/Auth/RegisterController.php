@@ -131,22 +131,14 @@ if (isset($data['profile_picture'])) {
     $extension = $data['profile_picture']->extension();
     $fileName = "{$name}.{$extension}";
 
-    // Move the uploaded image to the public directory
     $data['profile_picture']->move(public_path().'/'.$baseDir, $fileName);
 
-    // Get the full path to the uploaded image
     $imagePath = public_path($baseDir.'/'.$fileName);
-
-    // Open the image using Intervention Image
+ 
     $image = Image::make($imagePath);
 
-    // Resize the image (adjust the width and height as needed)
-    $image->resize(150, 150); // For example, resize to 200x200 pixels
-
-    // Save the resized image back to the same path
     $image->save($imagePath);
 
-    // Update the user's profile_picture column with the new path
     $user->profile_picture = "{$baseDir}/{$fileName}";
     $user->save();
 }

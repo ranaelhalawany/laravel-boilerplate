@@ -7,8 +7,8 @@
 
         <tr>
             <th>@lang('Avatar')</th>
-            <!-- <td><img src="{{ $logged_in_user->avatar }}" class="user-profile-image" /></td> -->
-            <td><img src="{{ asset($logged_in_user->profile_picture) }}" alt="{{ $logged_in_user->name }}'s Profile Picture"><td>
+            <td><img src="{{ asset($logged_in_user->profile_picture) }}" alt="{{ $logged_in_user->name }}'s Profile Picture"
+         width="100" height="100"><td>
 
         </tr>
 
